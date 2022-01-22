@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-const HomeScreen = () => import ('./components/StartScreen.vue')
-const QuestionScreen = () => import ('./components/Questions.vue')
+const HomeScreen = () => import ('./view/StartScreen.vue')
+const QuestionScreen = () => import ('./view/Questions.vue')
+
 export default createRouter({
   history: createWebHistory(),
   routes: [
