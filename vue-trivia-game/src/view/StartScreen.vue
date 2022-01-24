@@ -50,7 +50,7 @@ const startQuiz = () => {
 
         <h2>Choose categories to get questions from:  </h2>
         <div v-for="category in categories.trivia_categories" :key="category.id">
-            <input type="radio" v-model="selectedCategory" :value="category.name">
+            <input type="radio" v-model="selectedCategory" :value="category.id">
             <label> {{category.name}} </label>
         </div>
 
@@ -60,9 +60,9 @@ const startQuiz = () => {
             <select v-model="difficulty">
                 <option disabled value=""> Choose difficulty </option>
                 <option> Any difficulty </option>
-                <option> Easy </option>
-                <option> Medium </option>
-                <option> Hard </option>
+                <option> easy </option>
+                <option> medium </option>
+                <option> hard </option>
                 
             </select>
         </div>
