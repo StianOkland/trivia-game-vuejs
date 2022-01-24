@@ -5,7 +5,13 @@ import { apiFetchAllUsers } from "./api/users";
 export default createStore({
     state: {
         categories: [],
-        users: []
+        users: [],
+        username: '',
+        questionSpecs: {
+            category: '',
+            difficulty: '',
+            numberOfQuestions: 0,
+        }
     },
     mutations: {
         setCategories: (state, categories) => {
@@ -13,6 +19,12 @@ export default createStore({
         },
         setUsers: (state, users) => {
             state.users = users
+        },
+        setUsername: (state, username) => {
+            state.username = username
+        },
+        setQuestionSpecs: (state, specs) => {
+            state.questionSpecs = specs
         }
     },
     actions: {
@@ -30,7 +42,7 @@ export default createStore({
             if(error !== null) {
                 return error
             }
-            console.log(users[0].username)
+
             commit("setUsers", users)
             return null
         },

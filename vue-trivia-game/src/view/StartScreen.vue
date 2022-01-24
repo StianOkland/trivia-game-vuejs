@@ -24,11 +24,12 @@ onMounted(async () => {
 
 const categories = computed(() => store.state.categories)
 const users = computed(() => store.state.users)
+const usernameStore = computed(() => store.state.username)
+const specs = computed(() => store.state.questionSpecs)
+store.commit('setUsername', username)
+store.commit('setQuestionSpecs', {'category': selectedCategory,'difficulty': difficulty, 'numberOfQuestions': numOfQuestions})
 
-const isUser = () => {
-    console.log('aaa')
-    console.log(users[0].username)
-}
+
 
 
 const startQuiz = () => {
@@ -81,7 +82,6 @@ const startQuiz = () => {
             <h4>Number of Questions: {{numOfQuestions}}</h4>
 
         </div>
-
  
         <button type="submit" @click="startQuiz"> Start Quiz </button>
 
