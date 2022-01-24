@@ -47,4 +47,18 @@ export default createStore({
             return null
         },
     },
+    getters: { 
+        getCategory: state => {
+            return state.questionSpecs.category
+        },
+        getDifficulty: state => {
+            return state.questionSpecs.difficulty
+        },
+        getNumOfQuestions: state => {
+            return state.questionSpecs.numberOfQuestions
+        },
+        getUsername: state => {
+            return state.username
+        }
+    }
 })

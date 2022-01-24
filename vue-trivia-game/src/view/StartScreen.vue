@@ -30,8 +30,6 @@ store.commit('setUsername', username)
 store.commit('setQuestionSpecs', {'category': selectedCategory,'difficulty': difficulty, 'numberOfQuestions': numOfQuestions})
 
 
-
-
 const startQuiz = () => {
     router.push({
         name: 'Questions',
@@ -41,12 +39,10 @@ const startQuiz = () => {
 
 <template>
     <main>
-        <h1> Hello </h1>
+        <h2> Choose a username </h2>
         <form>
-            <fieldset>
-                <label for="username" aria-label="Username">Username</label>
-                <input type="text" id="username" v-model.lazy="username" @change="isUser"/>
-            </fieldset>
+            <!-- <label for="username" aria-label="Username">Username</label> -->
+            <input type="text" id="username" v-model.lazy="username" @change="isUser" placeholder="Insert username"/>
         </form>
 
         <h2>Choose categories to get questions from:  </h2>
@@ -80,7 +76,7 @@ const startQuiz = () => {
             <h4>Category: {{selectedCategory}}</h4>
             <h4>Difficulty: {{difficulty}}</h4>
             <h4>Number of Questions: {{numOfQuestions}}</h4>
-
+            {{specs}}
         </div>
  
         <button type="submit" @click="startQuiz"> Start Quiz </button>
@@ -89,9 +85,6 @@ const startQuiz = () => {
 </template>
 
 <style scoped>
-a {
-    color: #42b983;
-}
 </style>
 
 
