@@ -27,11 +27,10 @@ export default createStore({
         },
         async fetchUsers({ commit }) {
             const [ error, users] = await apiFetchAllUsers()
-            console.log(users)
             if(error !== null) {
                 return error
             }
- 
+            console.log(users[0].username)
             commit("setUsers", users)
             return null
         },

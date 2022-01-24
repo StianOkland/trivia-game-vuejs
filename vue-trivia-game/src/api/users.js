@@ -1,8 +1,7 @@
 export async function apiFetchAllUsers() {
     try {
-        const response = await fetch('so-noroff-api.herokuapp.com/trivia')
+        const response = await fetch('https://so-noroff-api.herokuapp.com/trivia')
         
-        console.log(response.json())
         if(!response.ok) {
             throw new Error('Could not find users')
         }

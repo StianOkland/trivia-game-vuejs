@@ -4,13 +4,14 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 
-const apiURL = 'so-noroff-api.herokuapp.com'
+const apiURL = 'https://so-noroff-api.herokuapp.com/trivia'
 const categoryArray = ref([])
 const username = ref('')
 const router = useRouter()
 const selectedCategory = ref('')
 const numOfQuestions = ref(0)
 const difficulty = ref('')
+const alreadyUser = ref(0)
 
 
 const store = useStore();
@@ -22,7 +23,12 @@ onMounted(async () => {
 })
 
 const categories = computed(() => store.state.categories)
+const users = computed(() => store.state.users)
 
+const isUser = () => {
+    console.log('aaa')
+    console.log(users[0].username)
+}
 
 
 const startQuiz = () => {
@@ -38,7 +44,7 @@ const startQuiz = () => {
         <form>
             <fieldset>
                 <label for="username" aria-label="Username">Username</label>
-                <input type="text" id="username" v-model.lazy="username"/>
+                <input type="text" id="username" v-model.lazy="username" @change="isUser"/>
             </fieldset>
         </form>
 
