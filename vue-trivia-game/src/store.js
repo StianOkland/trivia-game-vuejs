@@ -49,6 +49,7 @@ export default createStore({
     },
     getters: { 
         getCategory: state => {
+            // use const x = store.getters.getCategory to get category.
             return state.questionSpecs.category
         },
         getDifficulty: state => {

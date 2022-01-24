@@ -31,6 +31,9 @@ store.commit('setQuestionSpecs', {'category': selectedCategory,'difficulty': dif
 
 
 const startQuiz = () => {
+    const x = store.getters.getCategory
+
+    console.log(x)
     router.push({
         name: 'Questions',
     })
