@@ -1,44 +1,25 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
 
-//test variables
-const category = '9';
-const difficulty = 'medium';
-const questionsNum = '3';
-let userAnswers = [];
-//test variables end
+const store = useStore();
+const category = computed (() => store.getters.getCategory)
+const difficulty = computed (() => store.getters.getDifficulty)
+const questionsNum = computed (() => store.getters.getNumOfQuestions)
+const currentQuestion = computed (() => store.getters.getCurrentQuestion)
+const index = computed (() => currentQuestion.value.index)
+const questionSpecs = computed (() => store.getters.getQuestionSpecs)
 
-const apiURL = `https://opentdb.com/api.php?amount=${questionsNum}&category=${category}&difficulty=${difficulty}`;
-let questions;
-let currentQuestion = ref({
-    question: '',
-    incorrect_answers: [''],
-    correct_answer: '',
-    type: ''
-    });
-
-let index = 0; // index used to iterate through questions
-let currentAnswers = ref([]);
-let selectedAnswer = ref('');
-
-function getQuestions(){
-    return fetch(apiURL)
-    .then(response => response.json())
-}
-
-function updateCurrentQuestion(){
-    // updates variables with the current question and its answers
-    currentQuestion.value = questions[index];
-    currentAnswers.value = currentAnswers.value.concat(currentQuestion.value.incorrect_answers)
-    currentAnswers.value.splice(Math.floor(Math.random() * currentAnswers.value.length), -1, currentQuestion.value.correct_answer)
-}
-
-getQuestions()
-.then(function(data) {
-    questions = data.results;
-    updateCurrentQuestion();
+onMounted(async () => {
+    console.log(questionSpecs)
+    // console.log(difficulty.value)
+    // console.log(questionsNum.value)
+    await store.dispatch('fetchQuestions', [category.value, difficulty.value, questionsNum.value])
 })
 
+let userAnswers = [];
+
+let selectedAnswer = ref('');
 
 const handleAnswer = () => {
     if (selectedAnswer.value == ''){
@@ -46,17 +27,15 @@ const handleAnswer = () => {
     }
     else {
         userAnswers.push(selectedAnswer.value)
-        currentAnswers.value = []
         selectedAnswer.value = ''
 
-        if (index < questions.length - 1){
-            index++;
-            updateCurrentQuestion();
+        if (index.value < questionsNum.value - 1){
+            store.commit('setCurrentQuestion', [index.value + 1])
         }
         else {
-            // TO DO: save answers to state and push /results view
-
-            console.log("User answers: " + userAnswers)
+            // TO DO: push /results view
+            // store.commit('setCurrentQuestion', [0])
+            store.commit('setUserAnswers', userAnswers)
         }
     }
 } 
@@ -65,7 +44,7 @@ const handleAnswer = () => {
 
 <template>
     <h1 v-html="currentQuestion.question"> </h1>
-    <div v-for="(a, index) in currentAnswers" :key="index">
+    <div v-for="(a, index) in currentQuestion.answers" :key="index">
         <input type="radio" :value="a" v-model="selectedAnswer" :checked="selectedAnswer == a">
         <label v-html="a"></label>
     </div>
@@ -73,5 +52,4 @@ const handleAnswer = () => {
 </template>
 
 <style scoped>
-
 </style>
