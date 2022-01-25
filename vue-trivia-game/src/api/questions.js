@@ -1,8 +1,13 @@
 export async function apiFetchQuestions(category, difficulty, questionsNum) {
+    let apiURL = `https://opentdb.com/api.php?amount=${questionsNum}`
     try {
-        const apiURL = `https://opentdb.com/api.php?amount=${questionsNum}&category=${category}&difficulty=${difficulty}`;
+        if (category){
+            apiURL += `&category=${category}`
+        }
+        if(difficulty){
+            apiURL += `&difficulty=${difficulty}`
+        }
 
-        console.log(apiURL)
         const response = await fetch(apiURL)
         
         if(!response.ok) {
