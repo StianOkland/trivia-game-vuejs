@@ -1,12 +1,13 @@
 import { createStore } from "vuex";
 import { apiFetchAllCategories } from "./api/categories";
-import { apiFetchAllUsers } from "./api/users";
+import { apiFetchAllUsers, apiFetchUser, apiRegisterUser, apiUpdateHighScore } from "./api/users";
 import { apiFetchQuestions } from "./api/questions"
 
 export default createStore({
     state: {
         categories: [],
-        users: [],
+        users: {},
+        currentUser: {},
         username: '',
         questionSpecs: {
             category: '',
@@ -30,6 +31,12 @@ export default createStore({
         },
         setUsername: (state, username) => {
             state.username = username
+        },
+        setCurrentUser: (state, user) => {
+            state.currentUser = user
+        },
+        setHighScore: (state, newScore) => {
+            state.currentUser.highScore = newScore
         },
         setQuestionSpecs: (state, specs) => {
             state.questionSpecs = specs
@@ -80,6 +87,39 @@ export default createStore({
             commit("setQuestions", questions)
             commit("setCurrentQuestion", [0])
             return null
+        },
+        async fetchCurrentUser ( {commit}, payload ){
+            // fetches user info given username
+            const [error, user] = await apiFetchUser(payload)
+            // console.log(user)
+            if (error !== null){
+                return error
+            }
+            // if multiple users with same username are registered, login as the first one
+            commit("setCurrentUser", user[0])
+            return null
+        },
+        async registerUser ( { commit }, payload ){
+            // registers new user and sets it as current user
+            const [error, user] = await apiRegisterUser(payload)
+            // console.log(user)
+            if (error !== null){
+                return error
+            }
+            commit("setCurrentUser", user)
+            return null 
+        },
+        async updateHighScore ( { commit, state }, newScore ){
+            console.log("before: " + state.currentUser.highScore)
+            // checks and updates high score
+            if (newScore > state.currentUser.highScore){
+                const [error, user] = await apiUpdateHighScore(state.currentUser.id, newScore)
+
+                if (error !== null){
+                    return error
+                }
+                commit("setHighScore", newScore)
+            }
         }
     },
     getters: { 
@@ -104,6 +144,12 @@ export default createStore({
         },
         getUserAnswers: (state) => {
             return state.userAnswers
+        },
+        getCurrentUser: (state) => {
+            return state.currentUser
+        },
+        getUsers: (state) => {
+            return state.users
         }
     }
 })
