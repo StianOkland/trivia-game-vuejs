@@ -4,15 +4,12 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 
-const apiURL = 'https://so-noroff-api.herokuapp.com/trivia'
-const categoryArray = ref([])
+// const apiURL = 'https://so-noroff-api.herokuapp.com/trivia'
 const username = ref('')
 const router = useRouter()
 const selectedCategory = ref('')
 const numOfQuestions = ref(0)
 const difficulty = ref('')
-const alreadyUser = ref(0)
-
 
 const store = useStore();
 
@@ -31,9 +28,6 @@ store.commit('setQuestionSpecs', {'category': selectedCategory,'difficulty': dif
 
 
 const startQuiz = () => {
-    const x = store.getters.getCategory
-
-    console.log(x)
     router.push({
         name: 'Questions',
     })
@@ -60,9 +54,9 @@ const startQuiz = () => {
             <select v-model="difficulty">
                 <option disabled value=""> Choose difficulty </option>
                 <option> Any difficulty </option>
-                <option> easy </option>
-                <option> medium </option>
-                <option> hard </option>
+                <option value="easy"> Easy </option>
+                <option value="medium"> Medium </option>
+                <option value="hard"> Hard </option>
                 
             </select>
         </div>
