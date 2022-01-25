@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router'
 
 const store = useStore();
 const category = computed (() => store.getters.getCategory)
@@ -9,6 +10,8 @@ const questionsNum = computed (() => store.getters.getNumOfQuestions)
 const currentQuestion = computed (() => store.getters.getCurrentQuestion)
 const index = computed (() => currentQuestion.value.index)
 const questionSpecs = computed (() => store.getters.getQuestionSpecs)
+
+const router = useRouter()
 
 onMounted(async () => {
     console.log(questionSpecs)
@@ -33,9 +36,11 @@ const handleAnswer = () => {
             store.commit('setCurrentQuestion', [index.value + 1])
         }
         else {
-            // TO DO: push /results view
             // store.commit('setCurrentQuestion', [0])
             store.commit('setUserAnswers', userAnswers)
+            router.push({
+                name: 'Result',
+            })
         }
     }
 } 
