@@ -27,6 +27,19 @@ store.commit('setUsername', username)
 store.commit('setQuestionSpecs', {'category': selectedCategory,'difficulty': difficulty, 'numberOfQuestions': numOfQuestions})
 
 
+const isValidNum = () => {
+    console.log('aggaga')
+    console.log(numOfQuestions.value)
+    if(numOfQuestions.value < 1) {
+        numOfQuestions.value = 1
+        alert('Must be between 1 and 50')
+    }
+    else if(numOfQuestions.value > 50) {
+        numOfQuestions.value = 50
+        alert('Must be between 1 and 50')
+    }
+}
+
 const startQuiz = () => {
     router.push({
         name: 'Questions',
@@ -39,7 +52,7 @@ const startQuiz = () => {
         <h2> Choose a username </h2>
         <form>
             <!-- <label for="username" aria-label="Username">Username</label> -->
-            <input type="text" id="username" v-model.lazy="username" @change="isUser" placeholder="Insert username"/>
+            <input type="text" id="username" v-model.lazy="username" placeholder="Insert username"/>
         </form>
 
         <h2>Choose categories to get questions from:  </h2>
@@ -64,7 +77,7 @@ const startQuiz = () => {
 
         <div> 
             <h2>Choose number of questions:  </h2>
-            <input v-model.number="numOfQuestions" type="number" max=50 min=1 >
+            <input v-model.number.lazy="numOfQuestions" type="number" max=50 min=1  @change="isValidNum" >
         </div>
         
         <div> 
