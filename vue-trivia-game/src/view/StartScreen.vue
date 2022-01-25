@@ -28,8 +28,6 @@ store.commit('setQuestionSpecs', {'category': selectedCategory,'difficulty': dif
 
 
 const isValidNum = () => {
-    console.log('aggaga')
-    console.log(numOfQuestions.value)
     if(numOfQuestions.value < 1) {
         numOfQuestions.value = 1
         alert('Must be between 1 and 50')
@@ -40,7 +38,28 @@ const isValidNum = () => {
     }
 }
 
+const registUser = async () => {
+    await store.dispatch('registerUser', username.value)
+}
+
 const startQuiz = () => {
+    let isUser = 0
+
+    // Check if the username is allready in use
+    for(let i = 0; i < users.value.length; i++) {
+        console.log(users.value[i].username)
+
+        if(users.value[i].username == username.value) {
+            console.log('is the same')
+            isUser = 1
+        }
+    }
+
+    // If not in use, register new user
+    if(isUser === 0) {
+        registUser()
+    }
+
     router.push({
         name: 'Questions',
     })
@@ -87,6 +106,7 @@ const startQuiz = () => {
             <h4>Difficulty: {{difficulty}}</h4>
             <h4>Number of Questions: {{numOfQuestions}}</h4>
             {{specs}}
+            {{users}}
         </div>
  
         <button type="submit" @click="startQuiz"> Start Quiz </button>

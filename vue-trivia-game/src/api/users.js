@@ -42,7 +42,7 @@ export async function apiRegisterUser(username){
     const requestOptions = {
         method: 'POST',
         headers: {
-            'x-API-Key': apiKey,
+            'X-API-Key': apiKey,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
