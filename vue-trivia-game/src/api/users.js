@@ -1,5 +1,5 @@
-const apiURL = "https://so-noroff-api.herokuapp.com"
-const apiKey = "vuCBnrhCOEWMwEKoE5I0Aw=="
+const apiURL = "https://trivia-vue-api.herokuapp.com"
+const apiKey = "Hr0Q8UeUONO66F3WZzW5wgmK0XFcE4GJwKL5kMwkG2y5MJ4XSNxOQvZZzWMxeOhk"
 
 export async function apiFetchAllUsers() {
     try {
