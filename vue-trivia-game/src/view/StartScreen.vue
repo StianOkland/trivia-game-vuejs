@@ -8,7 +8,7 @@ import { useStore } from 'vuex'
 const username = ref('')
 const router = useRouter()
 const selectedCategory = ref('')
-const numOfQuestions = ref(0)
+const numOfQuestions = ref(1)
 const difficulty = ref('')
 
 const store = useStore();
@@ -64,7 +64,7 @@ const startQuiz = () => {
 
         <div> 
             <h2>Choose number of questions:  </h2>
-            <input v-model.number="numOfQuestions" type="number">
+            <input v-model.number="numOfQuestions" type="number" max=50 min=1 >
         </div>
         
         <div> 
