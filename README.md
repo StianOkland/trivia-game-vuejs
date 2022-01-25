@@ -16,9 +16,9 @@ npm run dev
 ```
 
 ## Contributing
-[@StianOkland](https://github.com/StianOkland)<br />
-[@larrycaw](https://github.com/larrycaw)<br />
-[@andreahn](https://github.com/andreahn)
+Stian Økland [@StianOkland](https://github.com/StianOkland)<br />
+Isak Hauknes [@larrycaw](https://github.com/larrycaw)<br />
+Andrea Hårseth Nakstad [@andreahn](https://github.com/andreahn)
 
 ## License
 ?????????????????????
