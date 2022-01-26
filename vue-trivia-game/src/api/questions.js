@@ -10,12 +10,12 @@ export async function apiFetchQuestions(category, difficulty, questionsNum) {
         }
         console.log(apiURL)
         const response = await fetch(apiURL)
-        
-        if(!response.ok) {
-            throw new Error('Could not find questions')
-        }
-        
+
         const data = await response.json()
+
+        if(data.response_code != '0') {
+            return ['Not enough questions for your settings.', []]
+        }
         console.log(data.results)
 
         return [null, data.results]

@@ -81,7 +81,10 @@ export default createStore({
         async fetchQuestions( {commit}, payload){
             // payload : [category, difficulty, questionsNum]
             const [error, questions] = await apiFetchQuestions(payload[0], payload[1], payload[2])
-            if (error !== null){
+            console.log(error)
+            if (error){
+                console.log("here")
+                commit("setQuestions", [])
                 return error
             }
             commit("setQuestions", questions)
