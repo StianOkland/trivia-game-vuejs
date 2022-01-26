@@ -51,11 +51,12 @@ const registUser = async () => {
 const startQuiz = () => {
     let isUser = 0
 
-    // Check if the username is allready in use
+    // Check if the username is already in use
     for(let i = 0; i < users.value.length; i++) {
 
         if(users.value[i].username == username.value) {
             isUser = 1
+            store.commit('setCurrentUser', users.value[i])
         }
     }
 

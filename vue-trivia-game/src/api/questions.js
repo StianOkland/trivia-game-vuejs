@@ -8,15 +8,14 @@ export async function apiFetchQuestions(category, difficulty, questionsNum) {
         if(difficulty && difficulty != 'Any difficulty'){
             apiURL += `&difficulty=${difficulty}`
         }
-        console.log(apiURL)
+
         const response = await fetch(apiURL)
-        
-        if(!response.ok) {
-            throw new Error('Could not find questions')
-        }
-        
+
         const data = await response.json()
-        console.log(data.results)
+
+        if(data.response_code != '0') {
+            return ['Not enough questions for your settings.', []]
+        }
 
         return [null, data.results]
     }

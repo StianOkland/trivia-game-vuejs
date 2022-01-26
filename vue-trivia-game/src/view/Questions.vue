@@ -10,14 +10,19 @@ const questionsNum = computed (() => store.getters.getNumOfQuestions)
 const currentQuestion = computed (() => store.getters.getCurrentQuestion)
 const index = computed (() => currentQuestion.value.index)
 const questionSpecs = computed (() => store.getters.getQuestionSpecs)
+const questions = computed (() => store.getters.getQuestions)
 
 const router = useRouter()
 
 onMounted(async () => {
-    console.log(questionSpecs)
-    // console.log(difficulty.value)
-    // console.log(questionsNum.value)
     await store.dispatch('fetchQuestions', [category.value, difficulty.value, questionsNum.value])
+
+    if (JSON.stringify(questions.value) == '[]'){
+        alert('Not enough questions for your settings.');
+        router.push({
+            name: 'HomeScreen'
+        })
+    }
 })
 
 let userAnswers = [];
