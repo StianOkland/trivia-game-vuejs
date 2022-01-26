@@ -43,32 +43,34 @@ getScore();
 </script>
 
 <template>
-    <h1> Quiz result </h1>
-    <h2> Score: {{ score }} </h2> <!-- Append score -->
+    <main>
+        <h1> Quiz result </h1>
+        <h2> Score: {{ score }} </h2> <!-- Append score -->
 
-    <div class="centered">
-        <h2> Questions </h2>
-        <ol>
-            <span v-for="question in questions" :key="question.question"> <!-- Looping through given questions -->
-                <li v-html="question.question"></li>
-            </span>
-        </ol>
-        <h2> Your answers </h2>
+        <div class="centered">
+            <h2> Questions </h2>
+            <ol>
+                <span v-for="question in questions" :key="question.question"> <!-- Looping through given questions -->
+                    <li v-html="question.question"></li>
+                </span>
+            </ol>
+            <h2> Your answers </h2>
 
-        <ol>
-            <span v-for="userAnswer in userAnswers" :key="userAnswer.value"> <!-- Looping through users answers -->
-                <li v-html="userAnswer"></li>
-            </span>
-        </ol>
-        <h2> Correct answers </h2>
-        <ol>
-            <span v-for="question in questions" :key="question.correct_answer"> <!-- Looping through correct answers -->
-                <li v-html="question.correct_answer"> </li>
-            </span>
-        </ol>
-    </div>
+            <ol>
+                <span v-for="userAnswer in userAnswers" :key="userAnswer.value"> <!-- Looping through users answers -->
+                    <li v-html="userAnswer"></li>
+                </span>
+            </ol>
+            <h2> Correct answers </h2>
+            <ol>
+                <span v-for="question in questions" :key="question.correct_answer"> <!-- Looping through correct answers -->
+                    <li v-html="question.correct_answer"> </li>
+                </span>
+            </ol>
+        </div>
 
-    <button @click="restart"> Restart Quiz </button> <!-- Button to return to home screen -->
+        <button @click="restart"> Restart Quiz </button> <!-- Button to return to home screen -->
+    </main>
 
 </template>
 
