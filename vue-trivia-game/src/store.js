@@ -81,9 +81,8 @@ export default createStore({
         async fetchQuestions( {commit}, payload){
             // payload : [category, difficulty, questionsNum]
             const [error, questions] = await apiFetchQuestions(payload[0], payload[1], payload[2])
-            console.log(error)
+
             if (error){
-                console.log("here")
                 commit("setQuestions", [])
                 return error
             }
@@ -94,7 +93,7 @@ export default createStore({
         async fetchCurrentUser ( {commit}, payload ){
             // fetches user info given username
             const [error, user] = await apiFetchUser(payload)
-            // console.log(user)
+
             if (error !== null){
                 return error
             }
@@ -105,7 +104,7 @@ export default createStore({
         async registerUser ( { commit }, payload ){
             // registers new user and sets it as current user
             const [error, user] = await apiRegisterUser(payload)
-            // console.log(user)
+
             if (error !== null){
                 return error
             }
@@ -113,7 +112,6 @@ export default createStore({
             return null 
         },
         async updateHighScore ( { commit, state }, newScore ){
-            console.log("before: " + state.currentUser.highScore)
             // checks and updates high score
             if (newScore > state.currentUser.highScore){
                 const [error, user] = await apiUpdateHighScore(state.currentUser.id, newScore)
