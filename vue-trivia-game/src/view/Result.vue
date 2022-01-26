@@ -65,19 +65,26 @@ getScore();
         </tbody>
     </table> -->
 
-    <div>
+    <div class="centered">
         <h2> Questions </h2>
-        <div v-for="question in questions" :key="question.question">
-            <label>{{ question.question }}</label>
-        </div>
+        <ol>
+            <span v-for="question in questions" :key="question.question">
+                <li v-html="question.question"></li>
+            </span>
+        </ol>
         <h2> Your answers </h2>
-        <div v-for="userAnswer in userAnswers" :key="userAnswer.value">
-            <label>{{ userAnswer }}</label>
-        </div>
+
+        <ol>
+            <span v-for="userAnswer in userAnswers" :key="userAnswer.value">
+                <li v-html="userAnswer"></li>
+            </span>
+        </ol>
         <h2> Correct answers </h2>
-        <div v-for="question in questions" :key="question.correct_answer">
-            <label>{{ question.correct_answer }}</label>
-        </div>
+        <ol>
+            <span v-for="question in questions" :key="question.correct_answer">
+                <li v-html="question.correct_answer"> </li>
+            </span>
+        </ol>
     </div>
 
     <button @click="restart"> Restart Quiz </button>
@@ -85,4 +92,7 @@ getScore();
 </template>
 
 <style scoped>
+.centered{
+    list-style-position: inside;
+}
 </style>
