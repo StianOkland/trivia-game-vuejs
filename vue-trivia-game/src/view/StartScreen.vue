@@ -3,22 +3,23 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-
-// const apiURL = 'https://so-noroff-api.herokuapp.com/trivia'
+// Variables to holde userinput
 const username = ref('')
-const router = useRouter()
 const selectedCategory = ref('')
 const numOfQuestions = ref(1)
 const difficulty = ref('')
 
+// Router and Store
+const router = useRouter()
 const store = useStore();
 
+// Fetch categories and users
 onMounted(async () => {
     await store.dispatch('fetchCategories')
     await store.dispatch('fetchUsers')
-
 })
 
+// Variables to hold and update data from store
 const categories = computed(() => store.state.categories)
 const users = computed(() => store.state.users)
 const usernameStore = computed(() => store.state.username)
@@ -27,6 +28,7 @@ store.commit('setUsername', username)
 store.commit('setQuestionSpecs', {'category': selectedCategory,'difficulty': difficulty, 'numberOfQuestions': numOfQuestions})
 
 
+// Check if selected number is between 1 and 50. If number is less than 1, set number to 1, if number is more than 50 set number to 50
 const isValidNum = () => {
     if(numOfQuestions.value < 1) {
         numOfQuestions.value = 1
@@ -38,19 +40,21 @@ const isValidNum = () => {
     }
 }
 
+// Register a new user
 const registUser = async () => {
     await store.dispatch('registerUser', username.value)
 }
 
+
+// When staring the game, if username is not used before register a new user.
+// Direct to questions-screen
 const startQuiz = () => {
     let isUser = 0
 
     // Check if the username is allready in use
     for(let i = 0; i < users.value.length; i++) {
-        console.log(users.value[i].username)
 
         if(users.value[i].username == username.value) {
-            console.log('is the same')
             isUser = 1
         }
     }
@@ -70,7 +74,6 @@ const startQuiz = () => {
     <main>
         <h2> Choose a username </h2>
         <form>
-            <!-- <label for="username" aria-label="Username">Username</label> -->
             <input type="text" id="username" v-model.lazy="username" placeholder="Insert username"/>
         </form>
 
@@ -82,7 +85,6 @@ const startQuiz = () => {
 
         <div>
             <h2>Choose difficulty:  </h2>
-
             <select v-model="difficulty">
                 <option disabled value=""> Choose difficulty </option>
                 <option> Any difficulty </option>
@@ -92,7 +94,6 @@ const startQuiz = () => {
                 
             </select>
         </div>
-
 
         <div> 
             <h2>Choose number of questions:  </h2>
@@ -105,8 +106,6 @@ const startQuiz = () => {
             <h4>Category: {{selectedCategory}}</h4>
             <h4>Difficulty: {{difficulty}}</h4>
             <h4>Number of Questions: {{numOfQuestions}}</h4>
-            {{specs}}
-            {{users}}
         </div>
  
         <button type="submit" @click="startQuiz"> Start Quiz </button>
