@@ -40,7 +40,7 @@ getScore();
 
 <template>
     <h1> Quiz result </h1>
-    <h2> Highscore: {{ score }} </h2>
+    <h2> Score: {{ score }} </h2>
 
     <!-- <table>
         <thead>
